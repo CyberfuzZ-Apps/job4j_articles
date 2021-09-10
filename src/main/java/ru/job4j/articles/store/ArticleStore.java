@@ -32,13 +32,12 @@ public class ArticleStore implements Store<Article>, AutoCloseable {
     private void initConnection() {
         LOGGER.info("Создание подключения к БД статей");
         try {
-            Class.forName(properties.getProperty("driver"));
             connection = DriverManager.getConnection(
                     properties.getProperty("url"),
                     properties.getProperty("username"),
                     properties.getProperty("password")
             );
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             LOGGER.error("Не удалось выполнить операцию: { }", throwables.getCause());
             throw new IllegalStateException();
         }
